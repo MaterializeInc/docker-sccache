@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+version=0.2.8
+shasum=bbf2e67d5e030967f31283236ea57f68892f0c7b56681ae7bfe80cd7f47e1acc
+
+docker build \
+    --tag materialize/sccache:$version \
+    --build-arg "VERSION=$version" \
+    --build-arg "SHASUM=$shasum" \
+    .
+
+docker tag materialize/sccache:$version materialize/sccache:latest
+docker push materialize/sccache:$version
+docker push materialize/sccache:latest
